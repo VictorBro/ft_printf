@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:59:11 by vbronov           #+#    #+#             */
-/*   Updated: 2024/10/18 23:34:12 by vbronov          ###   ########.fr       */
+/*   Updated: 2024/10/19 18:20:48 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_opt(t_opt *opt)
 	opt->zero = 0;
 	opt->zero_width = 0;
 	opt->padding = 0;
+	opt->error = 0;
 }
 
 int	count_digits(unsigned int n, int base)
@@ -41,28 +42,33 @@ int	count_digits(unsigned int n, int base)
 	return (count);
 }
 
-int	print_padding(int count, char pad_char)
+int	print_padding(int count, char pad_char, t_opt *opt)
 {
 	int	total;
 
+	if (opt->error || count <= 0)
+		return (0);
 	total = 0;
 	while (count-- > 0)
-		total += print_char(pad_char);
+		total += print_char(pad_char, opt);
 	return (total);
 }
 
-int	print_digits(unsigned int n, char *base, unsigned int base_len)
+int	print_digits(unsigned int n, char *base, unsigned int base_len, t_opt *opt)
 {
 	int	total;
 
+	if (opt->error)
+		return (0);
 	total = 0;
 	if (n < base_len)
 	{
-		total += print_char(base[n]);
+		total += print_char(base[n], opt);
 		return (total);
 	}
-	total += print_digits(n / base_len, base, base_len);
-	total += print_char(base[n % base_len]);
+	total += print_digits(n / base_len, base, base_len, opt);
+	if (!opt->error)
+		total += print_char(base[n % base_len], opt);
 	return (total);
 }
 

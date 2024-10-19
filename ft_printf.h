@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:14:46 by vbronov           #+#    #+#             */
-/*   Updated: 2024/10/18 23:38:46 by vbronov          ###   ########.fr       */
+/*   Updated: 2024/10/19 17:34:07 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,24 @@ typedef struct s_opt
 	int	padding;
 	int	zero;
 	int	zero_width;
+	int	error;
 }		t_opt;
 
 int		ft_printf(const char *str, ...);
 
-int		ft_printchar(char c, t_opt opt);
-int		ft_printstr(char *str, t_opt opt);
-int		ft_printptr(void *ptr, t_opt opt);
-int		ft_printnum(int n, t_opt opt);
-int		ft_printunum(unsigned int n, t_opt opt);
-int		ft_printhex(unsigned int n, t_opt opt, int isupper);
+int		ft_printchar(char c, t_opt *opt);
+int		ft_printstr(char *str, t_opt *opt);
+int		ft_printptr(void *ptr, t_opt *opt);
+int		ft_printnum(int n, t_opt *opt);
+int		ft_printunum(unsigned int n, t_opt *opt);
+int		ft_printhex(unsigned int n, t_opt *opt, int isupper);
 
-int		print_str(char *str);
-int		print_char(char c);
+int		print_str(char *str, t_opt *opt);
+int		print_char(char c, t_opt *opt);
 int		ft_max(int a, int b);
 void	init_opt(t_opt *opt);
 int		count_digits(unsigned int n, int base);
-int		print_padding(int count, char pad_char);
-int		print_digits(unsigned int n, char *base, unsigned int base_len);
+int		print_padding(int count, char pad_char, t_opt *opt);
+int		print_digits(unsigned int n, char *base, unsigned int base_len,
+			t_opt *opt);
 #endif

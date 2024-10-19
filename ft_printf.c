@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 22:03:37 by vbronov           #+#    #+#             */
-/*   Updated: 2024/10/18 23:02:15 by vbronov          ###   ########.fr       */
+/*   Updated: 2024/10/19 18:00:58 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_atoi_helper(const char *str, int *o_cur)
 	return (num);
 }
 
-int	process_normal(const char *str, va_list *params, t_opt opt)
+int	process_normal(const char *str, va_list *params, t_opt *opt)
 {
 	int	total;
 
@@ -46,7 +46,7 @@ int	process_normal(const char *str, va_list *params, t_opt opt)
 	else if (str[1] == 'X')
 		total += ft_printhex(va_arg(*params, unsigned int), opt, 1);
 	else if (str[1] == '%')
-		total += print_char('%');
+		total += ft_printchar('%', opt);
 	return (total);
 }
 
@@ -75,20 +75,18 @@ void	process_flags(t_opt *opt, const char *str, int *cur)
 	}
 }
 
-int	process(const char *str, va_list *params, int *cur)
+int	process(const char *str, va_list *params, int *cur, t_opt *opt)
 {
-	int		total;
-	t_opt	opt;
+	int	total;
 
 	total = 0;
-	init_opt(&opt);
 	while (ft_strchr("0123456789# +-.", str[(*cur) + 1]) != NULL)
 	{
 		if (ft_strchr("# +0-.", str[(*cur) + 1]) != NULL)
-			process_flags(&opt, str + (*cur), cur);
+			process_flags(opt, str + (*cur), cur);
 		else
 		{
-			opt.min_width = ft_atoi_helper(str + (*cur) + 1, cur);
+			opt->min_width = ft_atoi_helper(str + (*cur) + 1, cur);
 			(*cur)--;
 		}
 		(*cur)++;
@@ -103,18 +101,24 @@ int	ft_printf(const char *str, ...)
 	va_list	params;
 	int		cur;
 	int		total;
+	t_opt	opt;
 
 	cur = 0;
 	total = 0;
 	va_start(params, str);
 	while (str[cur])
 	{
+		init_opt(&opt);
 		if (str[cur] == '%')
-			total += process(str, &params, &cur);
+			total += process(str, &params, &cur, &opt);
 		else
-			total += print_char(str[cur]);
+			total += print_char(str[cur], &opt);
 		cur++;
+		if (opt.error)
+			break ;
 	}
 	va_end(params);
+	if (opt.error)
+		return (-1);
 	return (total);
 }

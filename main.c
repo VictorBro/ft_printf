@@ -55,7 +55,7 @@ int main(void)
 			   +2,
 			   42);
 	printf("\n%d\n", n);
-	
+
 	printf("Test 6\n");
 	n = ft_printf(", string precision : %5s, num precision : %0014.2x",
 				  "-42",
@@ -242,5 +242,23 @@ int main(void)
 	n = ft_printf("% u|", 3);
 	printf("%d\n", n);
 	n = printf("% u|", 3);
+	printf("%d\n", n);
+
+	printf("Test 35\n");
+	n = ft_printf("%.0i|", 0);
+	printf("%d\n", n);
+	n = printf("%.0i|", 0);
+	printf("%d\n", n);
+
+	printf("Test 36\n");
+	n = ft_printf("%+.d, %+.d, %+.d, %+.d, %+.d, %+.d, %+.d, %+.d|", 0, 5, -1, -10, 100, -1862, -2147483648, 2147483647);
+	printf("\n%d\n", n);
+	n = printf("%+.d, %+.d, %+.d, %+.d, %+.d, %+.d, %+.d, %+.d|", 0, 5, -1, -10, 100, -1862, -2147483648, 2147483647);
+	printf("\n%d\n", n);
+
+	printf("Test 37\n");
+	n = ft_printf("\x01\x02\a\v\b\f\r\n|");
+	printf("%d\n", n);
+	n = printf("\x01\x02\a\v\b\f\r\n|");
 	printf("%d\n", n);
 }
