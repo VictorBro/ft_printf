@@ -261,4 +261,28 @@ int main(void)
 	printf("%d\n", n);
 	n = printf("\x01\x02\a\v\b\f\r\n|");
 	printf("%d\n", n);
+
+	printf("Test 38\n");
+	n = ft_printf("cspdiuxX%");
+	printf("\n%d\n", n);
+	n = printf("cspdiuxX%");
+	printf("\n%d\n", n);
+
+	printf("Test 39\n");
+	n = ft_printf("%55%%");
+	printf("\n%d\n", n);
+	n = printf("%55%%");
+	printf("\n%d\n", n);
+
+	printf("Test 40\n");
+	n = ft_printf("%5%55%5%");
+	printf("\n%d\n", n);
+	n = printf("%5%55%5%");
+	printf("\n%d\n", n);
+
+	printf("Test 41\n");
+	n = ft_printf("%-05%");
+	printf("\n%d\n", n);
+	n = printf("%-05%");
+	printf("\n%d\n", n);
 }

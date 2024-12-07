@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 17:59:50 by vbronov           #+#    #+#             */
-/*   Updated: 2024/10/19 18:10:13 by vbronov          ###   ########.fr       */
+/*   Updated: 2024/12/07 14:36:44 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,26 @@ int	ft_printchar(char c, t_opt *opt)
 	while (!opt->error && cur < opt->padding)
 		cur += print_char(' ', opt);
 	return (cur);
+}
+
+int	is_valid(const char *str)
+{
+	int	n;
+	int	count;
+
+	if (!str || !*str)
+		return (1);
+	n = ft_strlen(str);
+	if (str[n - 1] != '%')
+		return (1);
+	count = 0;
+	while (n > 0 && ft_strchr("0123456789# +-.%", str[n - 1]) != NULL)
+	{
+		if (str[n - 1] == '%')
+			count++;
+		n--;
+	}
+	if (count % 2 == 1)
+		return (0);
+	return (1);
 }

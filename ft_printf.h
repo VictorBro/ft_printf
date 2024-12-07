@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:14:46 by vbronov           #+#    #+#             */
-/*   Updated: 2024/10/19 17:34:07 by vbronov          ###   ########.fr       */
+/*   Updated: 2024/12/01 22:18:42 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ int		count_digits(unsigned int n, int base);
 int		print_padding(int count, char pad_char, t_opt *opt);
 int		print_digits(unsigned int n, char *base, unsigned int base_len,
 			t_opt *opt);
+int		is_valid(const char *str);
 #endif
