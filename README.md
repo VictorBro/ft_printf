@@ -1,2 +1,2 @@
 # ft_printf
-Recoding printf()
+Recoding printf() including bonuses
